@@ -1,0 +1,9 @@
+name: electric-thingmy
+author: earthafire
+version: 1.0-SNAPSHOT
+main: xyz.earthafire.electricthingmy.App
+api-version: 1.17
+commands:
+  thingmy:
+    description: commands to link twitch and toggle functionality
+    usage: "'/thingmy ?' for usage"
