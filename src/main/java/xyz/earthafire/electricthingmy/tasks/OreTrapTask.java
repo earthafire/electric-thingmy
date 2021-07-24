@@ -1,6 +1,5 @@
 package xyz.earthafire.electricthingmy.tasks;
 
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -13,13 +12,13 @@ import java.util.Random;
 
 public class OreTrapTask extends BukkitRunnable{
     
-    private ArrayList<Player> players;
+    private Player player;
     private ArrayList<Material> ores;
     String name;
     
     //assumes "target" is not in "onlinePlayers"
-    public OreTrapTask(ArrayList<Player> players, String name) {
-        this.players = players;
+    public OreTrapTask(Player player, String name) {
+        this.player = player;
         this.name = name;
 
         ores = new ArrayList<Material>();
@@ -60,80 +59,78 @@ public class OreTrapTask extends BukkitRunnable{
 
     @Override
     public void run() {
-        for(Player nextPlayer : players){
-            nextPlayer.sendMessage(ChatColor.LIGHT_PURPLE + name + ChatColor.WHITE + " has encased you in stone.");
-            nextPlayer.playSound(nextPlayer.getLocation(), Sound.BLOCK_ANVIL_FALL, .8F, 1.0F);
+        //player.sendMessage(ChatColor.LIGHT_PURPLE + name + ChatColor.WHITE + " has encased you in stone.");
+        player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_FALL, .8F, 1.0F);
 
-            Location temp;
+        Location temp;
 
-            int x;
-            int z;
-            int y;
+        int x;
+        int z;
+        int y;
 
-            //front
-            z = 2;
+        //front
+        z = 2;
+        for(x = -1; x <= 1; x++){
+            for(y = 0; y <= 2; y++){
+                temp = player.getLocation().add(x, y, z);
+                if(temp.getBlock().getType() == Material.AIR){
+                    temp.getBlock().setType(getRandomOre());
+                }
+            }
+        }
+
+        //back
+        z = -2;
+        for(x = -1; x <= 1; x++){
+            for(y = 0; y <= 2; y++){
+                temp = player.getLocation().add(x, y, z);
+                if(temp.getBlock().getType() == Material.AIR){
+                    temp.getBlock().setType(getRandomOre());
+                }
+            }
+        }
+
+        //left
+        x = 2;
+        for(z = -1; z <= 1; z++){
+            for(y = 0; y <= 2; y++){
+                temp = player.getLocation().add(x, y, z);
+                if(temp.getBlock().getType() == Material.AIR){
+                    temp.getBlock().setType(getRandomOre());
+                }
+            }
+        }
+        //right
+        x = -2;
+        for(z = -1; z <= 1; z++){
+            for(y = 0; y <= 2; y++){
+                temp = player.getLocation().add(x, y, z);
+                if(temp.getBlock().getType() == Material.AIR){
+                    temp.getBlock().setType(getRandomOre());
+                }
+            }
+        }
+
+        App.log.info("5");
+        //top
+        y = 3;
+        for(z = -1; z <= 1; z++){
             for(x = -1; x <= 1; x++){
-                for(y = 0; y <= 2; y++){
-                    temp = nextPlayer.getLocation().add(x, y, z);
-                    if(temp.getBlock().getType() == Material.AIR){
-                        temp.getBlock().setType(getRandomOre());
-                    }
+                temp = player.getLocation().add(x, y, z);
+                if(temp.getBlock().getType() == Material.AIR){
+                    temp.getBlock().setType(getRandomOre());
                 }
             }
+        }
 
-            //back
-            z = -2;
+        App.log.info("6");
+        //bottom
+        y = -1;
+        for(z = -1; z <= 1; z++){
             for(x = -1; x <= 1; x++){
-                for(y = 0; y <= 2; y++){
-                    temp = nextPlayer.getLocation().add(x, y, z);
-                    if(temp.getBlock().getType() == Material.AIR){
-                        temp.getBlock().setType(getRandomOre());
-                    }
-                }
-            }
-
-            //left
-            x = 2;
-            for(z = -1; z <= 1; z++){
-                for(y = 0; y <= 2; y++){
-                    temp = nextPlayer.getLocation().add(x, y, z);
-                    if(temp.getBlock().getType() == Material.AIR){
-                        temp.getBlock().setType(getRandomOre());
-                    }
-                }
-            }
-            //right
-            x = -2;
-            for(z = -1; z <= 1; z++){
-                for(y = 0; y <= 2; y++){
-                    temp = nextPlayer.getLocation().add(x, y, z);
-                    if(temp.getBlock().getType() == Material.AIR){
-                        temp.getBlock().setType(getRandomOre());
-                    }
-                }
-            }
-
-            App.log.info("5");
-            //top
-            y = 3;
-            for(z = -1; z <= 1; z++){
-                for(x = -1; x <= 1; x++){
-                    temp = nextPlayer.getLocation().add(x, y, z);
-                    if(temp.getBlock().getType() == Material.AIR){
-                        temp.getBlock().setType(getRandomOre());
-                    }
-                }
-            }
-
-            App.log.info("6");
-            //bottom
-            y = -1;
-            for(z = -1; z <= 1; z++){
-                for(x = -1; x <= 1; x++){
-                    temp = nextPlayer.getLocation().add(x, y, z);
-                    if(temp.getBlock().getType() == Material.AIR){
-                        temp.getBlock().setType(getRandomOre());
-                    }
+                temp = player.getLocation().add(x, y, z);
+                if(temp.getBlock().getType() == Material.AIR){
+                    temp.getBlock().setType(getRandomOre());
                 }
             }
         }

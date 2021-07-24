@@ -1,37 +1,38 @@
 package xyz.earthafire.electricthingmy.tasks;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import xyz.earthafire.electricthingmy.App;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.UUID;
 
 public class SwapPlayersTask extends BukkitRunnable{
-    
-    private ArrayList<UUID> onlinePlayersUUIDs;
+
     private Player target;
+    private String name;
     
     //assumes "target" is not in "onlinePlayers"
-    public SwapPlayersTask(Player target, ArrayList<UUID> onlinePlayersUUIDs) {
-        this.onlinePlayersUUIDs = onlinePlayersUUIDs;
+    public SwapPlayersTask(Player target, String name) {
         this.target = target;
+        this.name = name;
     }
 
     @Override
     public void run() {
-        Random r = new Random();
+        ArrayList<Player> onlinePlayers = (ArrayList<Player>) App.plugin.getServer().getOnlinePlayers();
 
-        if(onlinePlayersUUIDs == null || onlinePlayersUUIDs.size() < 1){
+        if(onlinePlayers == null || onlinePlayers.size() < 2){
             target.sendMessage("Swap failed, nobody to swap with!");
             return;
         }
 
+        Random r = new Random();
+        onlinePlayers.remove(target);
+
         //get random player
-        UUID randomPlayerUUID = onlinePlayersUUIDs.get(r.nextInt(onlinePlayersUUIDs.size()));
-        Player playerToSwap = Bukkit.getPlayer(randomPlayerUUID);
+        Player playerToSwap = onlinePlayers.get(r.nextInt(onlinePlayers.size()));
 
         target.sendMessage("Swapping you and " + playerToSwap.getDisplayName() + "!");
         playerToSwap.sendMessage("Swapping you and " + target.getDisplayName() + "!");

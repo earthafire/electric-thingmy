@@ -29,7 +29,7 @@ public class FillInvWithGarbageTask extends BukkitRunnable{
         ItemMeta meta;
         while(emptySlot != -1){
             // What you want to schedule goes here
-            switch(r.nextInt(7 /*number of cases*/)){
+            switch(r.nextInt(8 /*number of cases*/)){
                 case 0:
                     items = new ItemStack(Material.DIRT);
                     items.setAmount(1);
@@ -66,6 +66,15 @@ public class FillInvWithGarbageTask extends BukkitRunnable{
                     items.setItemMeta(meta);
                     break;
                 case 5:
+                    items = new ItemStack(Material.LEATHER_CHESTPLATE);
+                    items.setAmount(1);
+                    meta = items.getItemMeta();
+                    if (meta instanceof Damageable){
+                        ((Damageable) meta).setDamage(Material.LEATHER_BOOTS.getMaxDurability() - 1);
+                    }
+                    items.setItemMeta(meta);
+                    break;
+                case 6:
                     items = new ItemStack(Material.COARSE_DIRT);
                     items.setAmount(1);
                     break;

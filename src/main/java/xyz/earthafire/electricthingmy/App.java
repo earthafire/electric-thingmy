@@ -80,14 +80,17 @@ public class App extends JavaPlugin {
 
     public Tasks makeTaskStarters(){
         Tasks temp = new Tasks();
-        temp.addTask("bump", new BumpStarter(), 1);
-        temp.addTask("awww man!", new CreeperStarter(), 1);
-        temp.addTask("creepy noise", new ScaryNoiseStarter(), 1);
-        temp.addTask("drop items", new DropItemsStarter(), 1);
-        temp.addTask("garbage", new FillInvWithGarbageStarter(), 1);
-        temp.addTask("lacroix", new LaCroixStarter(), 1);
-        temp.addTask("random item", new RandomItemStarter(), 1);
-
+        temp.addTask("bump", new BumpStarter(), 10);
+        temp.addTask("awww man!", new CreeperStarter(), 3);
+        temp.addTask("creepy noise", new ScaryNoiseStarter(), 10);
+        temp.addTask("drop items", new DropItemsStarter(), 5);
+        temp.addTask("garbage", new FillInvWithGarbageStarter(), 5);
+        temp.addTask("lacroix", new LaCroixStarter(), 10);
+        temp.addTask("random item", new RandomItemStarter(), 8);
+        temp.addTask("set night", new SetNightStarter(), 8);
+        temp.addTask("light fires", new StartFiresStarter(), 4);
+        temp.addTask("swap players", new SwapPlayersStarter(), 5);
+        temp.addTask("nausea", new NauseaStarter(), 5);
         return temp;
     }
 }
